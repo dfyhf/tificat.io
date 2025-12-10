@@ -1,1 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Chris O'Hara | Certifications</title>
+    <style>
+      :root {
+        --bg-a: 27 20% 18%;
+        --bg-b: 12 28% 24%;
+        --bg-c: 20 30% 28%;
+        --bg-d: 4 36% 20%;
+        --bg-e: 30 18% 22%;
+        --blur: 28px;
 
+        --card-w: 640px;
+        --card-gap: 120px;
+        --tilt: 16deg;
+        --focus-scale: 1.06;
+        --side-scale: 0.76;
+
+        --shadow: 0 18px 64px rgba(0, 0, 0, 0.36);
+        --text: 0 0% 96%;
+        --muted: 0 0% 82%;
+        --line: 0 0% 100% / 0.28;
+        --line-fade: 0 0% 100% / 0;
+        --radius: 24px;
+
+        --arrow-bg: rgba(20, 20, 20, 0.45);
+        --arrow-bg-hover: rgba(30, 30, 30, 0.65);
+        --arrow-border: rgba(255, 255, 255, 0.18);
+        --arrow-color: rgba(255, 255, 255, 0.88);
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        color: hsl(var(--text));
+        background: hsl(25 15% 18%);
+        overflow: hidden;
+      }
+
+      .bg {
+        position: fixed; inset: 0; z-index: 0;
+        background:
+          radial-gradient(800px 800px at 15% 20%, hsl(var(--bg-b) / 0.9), transparent 70%),
+          radial-gradient(900px 900px at 85% 30%, hsl(var(--bg-c) / 0.9), transparent 70%),
+          radial-gradient(700px 700px at 30% 80%, hsl(var(--bg-d) / 0.85), transparent 70%),
+          radial-gradient(700px 700px at 75% 75%, hsl(var(--bg-e) / 0.8), transparent 70%),
+          linear-gradient(145deg, hsl(var(--bg-a)), hsl(var(--bg-d)));
+        filter: blur(var(--blur));
+        transform: scale(1.05);
+      }
+      .veil {
+        position: fixed; inset: 0; z-index: 1;
+        backdrop-filter: blur(18px) saturate(110%);
+        -webkit-backdrop-filter: blur(18px) saturate(110%);
+        background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.18));
+      }
+
+      .wrap {
+        position: relative; z-index: 2; min-height: 100dvh;
+        display: grid; grid-template-rows: auto 1fr auto;
+        align-items: center; justify-items: center;
+        padding: 40px clamp(16px, 3vw, 28px); gap: 24px;
+      }
+
+      header h1 {
+        margin: 0; font-size: clamp(18px, 2.8vw, 28px); font-weight: 650; text-align: center;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+      }
+
+      .stage {
+        width: min(92vw, 1300px); min-height: min(64vh, 700px);
+        display: grid; grid-template-rows: auto 1fr auto;
+        align-items: center; justify-items: center; gap: 22px;
+        perspective: 1400px; position: relative;
+      }
+
+      .line {
+        width: 100%; height: 1px; position: relative; opacity: 0.9; z-index: 5;
+      }
+      .line::before {
+        content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+        background: linear-gradient(to right,
+          hsl(var(--line-fade)), hsl(var(--line)) 14%,
+          hsl(var(--line)) 86%, hsl(var(--line-fade)));
+        filter: blur(0.2px);
+      }
+
+      .flow {
+        position: relative; width: 100%; height: 100%;
+        display: grid; place-items: center;
+        transform-style: preserve-3d; user-select: none; z-index: 2;
+      }
+
+      /* Card button: neutral visuals */
+      .card {
+        position: absolute;
+        width: min(var(--card-w), 78vw);
+        border: 0; padding: 0; background: transparent;
+        box-shadow: none; appearance: none; -webkit-appearance: none;
+        transform-style: preserve-3d;
+        transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 320ms, opacity 320ms;
+        z-index: 3; cursor: pointer;
+      }
+      .card:focus { outline: none; }
+      .card:focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 4px; }
+
+      .shadow-wrap {
+        position: absolute; inset: 0;
+        filter: drop-shadow(0 18px 64px rgba(0,0,0,0.36));
+        pointer-events: none;
+      }
+
+      .scale {
+        position: relative; width: 100%; height: 100%;
+        display: grid; place-items: center;
+        transform: scale(0.8); transform-origin: center;
+      }
+
+      .thumb {
+        width: 100%; height: 100%; display: block;
+        object-fit: contain; object-position: center;
+        border-radius: var(--radius); overflow: hidden;
+        background: none; border: none;
+        transform: translateZ(0); backface-visibility: hidden;
+      }
+
+      /* Side arrow buttons */
+      .nav-arrow {
+        position: absolute; top: 50%; transform: translateY(-50%);
+        z-index: 6;
+        display: grid; place-items: center;
+        width: 44px; height: 44px;
+        border-radius: 999px;
+        color: var(--arrow-color);
+        background: var(--arrow-bg);
+        border: 1px solid var(--arrow-border);
+        backdrop-filter: blur(6px) saturate(120%);
+        -webkit-backdrop-filter: blur(6px) saturate(120%);
+        cursor: pointer;
+        opacity: 0; transition: opacity 180ms, background 160ms, transform 160ms;
+      }
+      .nav-arrow:hover,
+      .nav-arrow:focus-visible {
+        background: var(--arrow-bg-hover);
+        opacity: 1;
+        outline: none;
+      }
+      .stage:hover .nav-arrow { opacity: 0.9; }
+
+      .nav-left { left: -4px; }
+      .nav-right { right: -4px; }
+
+      .nav-arrow svg { width: 18px; height: 18px; display: block; }
+
+      /* Invisible click zones for easy prev/next clicks */
+      .zone {
+        position: absolute; top: 0; bottom: 0; width: 50%;
+        z-index: 5; cursor: pointer;
+        background: transparent;
+      }
+      .zone-left { left: 0; }
+      .zone-right { right: 0; }
+      /* Don’t block keyboard focus on arrows */
+      .zone { pointer-events: auto; }
+      .nav-arrow { pointer-events: auto; }
+
+      .meta {
+        margin-top: clamp(10px, 2vh, 18px); text-align: center; line-height: 1.35;
+        color: hsl(var(--muted)); font-size: clamp(14px, 1.8vw, 16px);
+        white-space: pre-line; text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+        min-height: calc(1em * 1.35 * 2); display: grid; align-items: center; z-index: 2;
+      }
+
+      @media (max-width: 640px) {
+        :root { --card-gap: 90px; --tilt: 14deg; --side-scale: 0.72; --card-w: 520px; --focus-scale: 1.04; }
+        .nav-left { left: 2px; } .nav-right { right: 2px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <header><h1>Chris O'Hara | Certifications</h1></header>
+
+      <main class="stage" aria-label="Certification coverflow">
+        <div class="line" aria-hidden="true"></div>
+
+        <div class="flow" id="flow" role="listbox" aria-live="polite"></div>
+
+        <div class="line" aria-hidden="true"></div>
+
+        <!-- Side arrows -->
+        <button class="nav-arrow nav-left" id="arrowPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M15.5 4.5L8 12l7.5 7.5-1.5 1.5L5 12l9-9 1.5 1.5z"/>
+          </svg>
+        </button>
+        <button class="nav-arrow nav-right" id="arrowNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M8.5 19.5L16 12 8.5 4.5 10 3l9 9-9 9-1.5-1.5z"/>
+          </svg>
+        </button>
+
+        <!-- Click zones -->
+        <div class="zone zone-left" id="zoneLeft" aria-hidden="true"></div>
+        <div class="zone zone-right" id="zoneRight" aria-hidden="true"></div>
+      </main>
+
+      <div id="meta" class="meta" aria-live="polite"></div>
+    </div>
+
+    <script>
+      const items = [
+        { label: "WT", img: "WT.png", meta: "2013" },
+        { label: "NCSU", img: "NCSU.png", meta: "2015" },
+        { label: "SecSet", img: "SecSet.png", meta: "2019" },
+        { label: "Sec+", img: "Sec+.png", meta: "Since 2020\nStatus: Active" },
+        { label: "Linux+", img: "Linux+.png", meta: "Since 2024\nStatus: Active" },
+        { label: "CySA+", img: "CySA+.png", meta: "Since 2025\nStatus: Active" },
+        { label: "CSAP", img: "CSAP.png", meta: "Since 2025\nStatus: Active" }
+      ];
+
+      const aspect = { "Linux+.png": "22 / 17" };
+      const DEFAULT_ASPECT = "22 / 17";
+
+      const flow = document.getElementById("flow");
+      const meta = document.getElementById("meta");
+
+      const arrowPrev = document.getElementById("arrowPrev");
+      const arrowNext = document.getElementById("arrowNext");
+      const zoneLeft = document.getElementById("zoneLeft");
+      const zoneRight = document.getElementById("zoneRight");
+
+      let index = 0;
+
+      const cards = items.map((item, i) => {
+        const card = document.createElement("button");
+        card.className = "card";
+        card.setAttribute("role", "option");
+        card.setAttribute("aria-label", item.label);
+        card.setAttribute("aria-selected", i === index ? "true" : "false");
+        card.tabIndex = i === index ? 0 : -1;
+        card.style.aspectRatio = aspect[item.img] || DEFAULT_ASPECT;
+
+        const shadow = document.createElement("div");
+        shadow.className = "shadow-wrap";
+
+        const scale = document.createElement("div");
+        scale.className = "scale";
+
+        const img = document.createElement("img");
+        img.className = "thumb";
+        img.alt = "";
+        img.src = item.img;
+        img.loading = "lazy";
+        img.decoding = "async";
+
+        scale.appendChild(img);
+        card.appendChild(shadow);
+        card.appendChild(scale);
+        flow.appendChild(card);
+
+        // Clicking the card itself advances to next
+        card.addEventListener("click", () => { next(); });
+
+        return card;
+      });
+
+      function render() {
+        const n = items.length;
+        for (let i = 0; i < n; i++) {
+          const card = cards[i];
+          let d = i - index;
+          if (Math.abs(d) > n / 2) d = d > 0 ? d - n : d + n;
+
+          const abs = Math.abs(d);
+          const sign = Math.sign(d);
+
+          const angle = sign * -1 * toRad(getVar("--tilt", 16));
+          const spread = getVar("--card-gap", 120);
+          const sideScale = getVar("--side-scale", 0.76);
+          const focusScale = getVar("--focus-scale", 1.06);
+
+          const translateX = d * spread;
+          const translateZ = abs === 0 ? 110 : -140 - abs * 50;
+          const rotateY = abs === 0 ? 0 : angle;
+
+          const scaleV = abs === 0 ? focusScale : sideScale;
+          const opacity = abs === 0 ? 1 : Math.max(0.18, 1 - abs * 0.18);
+          const blur = abs === 0 ? 0 : Math.min(4 + abs * 1.2, 9);
+
+          card.style.transform =
+            "translateX(" + translateX + "px) " +
+            "translateZ(" + translateZ + "px) " +
+            "rotateY(" + rotateY + "rad) " +
+            "scale(" + scaleV + ")";
+          card.style.opacity = String(opacity);
+          card.style.filter = "blur(" + blur + "px)";
+          card.setAttribute("aria-selected", abs === 0 ? "true" : "false");
+          card.tabIndex = abs === 0 ? 0 : -1;
+        }
+        meta.textContent = items[index].meta;
+      }
+
+      function toRad(deg) { return (deg * Math.PI) / 180; }
+      function getVar(name, fallback) {
+        const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        if (!v) return fallback;
+        const num = parseFloat(v);
+        return Number.isNaN(num) ? fallback : num;
+      }
+
+      function next() { index = (index + 1) % items.length; render(); }
+      function prev() { index = (index - 1 + items.length) % items.length; render(); }
+
+      // Side arrows
+      arrowNext.addEventListener("click", (e) => { e.stopPropagation(); next(); });
+      arrowPrev.addEventListener("click", (e) => { e.stopPropagation(); prev(); });
+
+      // Click zones
+      zoneRight.addEventListener("click", () => next());
+      zoneLeft.addEventListener("click", () => prev());
+
+      // Keyboard navigation
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") next();
+        else if (e.key === "ArrowLeft") prev();
+      });
+
+      // Drag/Swipe
+      let startX = null;
+      const start = (x) => (startX = x);
+      const move = (x) => {
+        if (startX === null) return;
+        const dx = x - startX;
+        if (Math.abs(dx) > 40) { if (dx < 0) next(); else prev(); startX = null; }
+      };
+      const end = () => (startX = null);
+
+      const flowEl = document.getElementById("flow");
+      flowEl.addEventListener("pointerdown", (e) => start(e.clientX));
+      window.addEventListener("pointermove", (e) => move(e.clientX));
+      window.addEventListener("pointerup", end);
+      window.addEventListener("pointercancel", end);
+      window.addEventListener("pointerleave", end);
+
+      render();
+    </script>
+  </body>
+</html>

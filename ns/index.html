@@ -42,6 +42,7 @@
 
         --shadow: 0 18px 64px rgba(0, 0, 0, 0.46);
 
+        /* Baseline meta spacing used by the centering formula */
         --meta-gap: 72px;
       }
 
@@ -188,10 +189,13 @@
         .title--subtitle { font-size: clamp(15px, 3.8vw, 20px); margin-bottom: 16px; }
       }
 
-      /* Desktop-only: nudge meta lower so it centers between card and bottom line */
+      /* Desktop-only: use larger meta-gap but same formula to keep meta centered */
       @media (min-width: 900px) {
+        :root {
+          --meta-gap: 96px; /* tune ±4–8px if needed */
+        }
         .meta {
-          bottom: calc(14px + (var(--meta-gap)) / 2 + 12px);
+          bottom: calc(14px + (var(--meta-gap)) / 2);
         }
       }
 

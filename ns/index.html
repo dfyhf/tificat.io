@@ -91,7 +91,19 @@
           -0.5px 0.5px 0 #000,
           0.5px -0.5px 0 #000,
           -0.5px -0.5px 0 #000;
+
+        /* Black border around each title line */
+        position: relative;
+        display: inline-block;
+        padding: 10px 14px;
+        border: 2px solid #000;   /* 2px as requested */
+        border-radius: 8px;
+        background: transparent;
       }
+      /* Keep both lines centered with their own bordered boxes */
+      header > .title--name { display: inline-block; }
+      header > .title--subtitle { display: inline-block; margin-top: 10px; }
+
       .title--name {
         font-weight: 700; font-size: clamp(26px, 4.2vw, 44px);
         letter-spacing: 0.4px; line-height: 1.28;
@@ -191,12 +203,8 @@
 
       /* Desktop-only: use larger meta-gap but same formula to keep meta centered */
       @media (min-width: 900px) {
-        :root {
-          --meta-gap: 96px; /* tune ±4–8px if needed */
-        }
-        .meta {
-          bottom: calc(14px + (var(--meta-gap)) / 2);
-        }
+        :root { --meta-gap: 96px; }
+        .meta { bottom: calc(14px + (var(--meta-gap)) / 2); }
       }
 
       /* Zoom overlay */

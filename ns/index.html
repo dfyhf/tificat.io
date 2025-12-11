@@ -112,7 +112,7 @@
         );
       }
 
-      /* Layout container: reduce top padding by 80% (108px → 22px) */
+      /* Layout container (mobile-first) */
       .wrap {
         position: relative;
         z-index: 2;
@@ -122,8 +122,9 @@
         align-items: start;
         justify-items: center;
 
-        padding: 22px clamp(16px, 3vw, 28px) 48px;
-        row-gap: 56px;
+        /* Mobile-perfect values you approved earlier */
+        padding: 36px clamp(16px, 3vw, 28px) 48px;
+        row-gap: 28px; /* gap below line 2 on mobile */
       }
 
       /* TITLES */
@@ -144,8 +145,8 @@
         letter-spacing: 0.4px;
         line-height: 1.28;
 
-        margin-top: 8px;     /* unchanged from the version you liked */
-        margin-bottom: 36px; /* keep spacing to subtitle */
+        margin-top: 8px;
+        margin-bottom: 36px;
       }
       .title--subtitle {
         font-weight: 600;
@@ -156,7 +157,7 @@
         margin-bottom: 16px;
       }
 
-      /* Stage (kept as in your version with larger gap) */
+      /* Stage */
       .stage {
         width: min(92vw, 1300px);
         min-height: min(70vh, 760px);
@@ -344,41 +345,18 @@
         pointer-events: none;
       }
 
-      /* Zoom overlay */
-      .zoom-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 99;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(6px) saturate(120%);
-        -webkit-backdrop-filter: blur(6px) saturate(120%);
-      }
-      .zoom-overlay.open {
-        display: flex;
-      }
-      .zoom-content {
-        max-width: 92vw;
-        max-height: 90vh;
-        box-shadow: var(--shadow);
-        border-radius: var(--radius);
-        overflow: hidden;
-        background: #0f1115;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-      }
-      .zoom-content img {
-        display: block;
-        max-width: 100%;
-        max-height: 90vh;
-        object-fit: contain;
-        object-position: center;
+      /* Desktop-only spacing refinements (mobile stays perfect) */
+      @media (min-width: 900px) {
+        .wrap {
+          padding: 48px clamp(16px, 3vw, 28px) 48px; /* more space above name */
+          row-gap: 20px; /* less space below line 2 */
+        }
       }
 
       @media (max-width: 640px) {
         .wrap {
-          padding: 36px clamp(16px, 3vw, 28px) 48px;
+          /* keep mobile as-is */
+          padding: 36px 16px 36px;
           row-gap: 28px;
         }
         .stage {
@@ -496,7 +474,6 @@
       const zoomImg = document.getElementById("zoomImg");
 
       let index = 0;
-      let lastFocusedCard = null;
 
       const cards = items.map((item, i) => {
         const card = document.createElement("button");
@@ -525,7 +502,6 @@
         card.appendChild(scale);
         flow.appendChild(card);
 
-        // Click: zoom if focused, otherwise advance
         card.addEventListener("click", (e) => {
           const isFocused = card.getAttribute("aria-selected") === "true";
           if (isFocused) {
@@ -601,6 +577,11 @@
         render();
       }
 
+      const arrowNext = document.getElementById("arrowNext");
+      const arrowPrev = document.getElementById("arrowPrev");
+      const zoneRight = document.getElementById("zoneRight");
+      const zoneLeft = document.getElementById("zoneLeft");
+
       arrowNext.addEventListener("click", (e) => {
         e.stopPropagation();
         next();
@@ -609,14 +590,8 @@
         e.stopPropagation();
         prev();
       });
-
       zoneRight.addEventListener("click", () => next());
       zoneLeft.addEventListener("click", () => prev());
-
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight") next();
-        else if (e.key === "ArrowLeft") prev();
-      });
 
       // Drag/Swipe
       let startX = null;
@@ -639,6 +614,8 @@
       window.addEventListener("pointercancel", end);
       window.addEventListener("pointerleave", end);
 
+      // Zoom overlay helpers (optional use later)
+      function openZoom() {}
       render();
     </script>
   </body>

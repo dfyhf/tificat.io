@@ -8,7 +8,7 @@
     />
     <title>Chris O'Hara — Certifications</title>
 
-    <!-- Stylized, legible display type: Outfit (clean, modern, with character) -->
+    <!-- Stylized, legible display type -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -112,6 +112,7 @@
         );
       }
 
+      /* Layout container: more top space and larger gaps, to center coverflow */
       .wrap {
         position: relative;
         z-index: 2;
@@ -120,8 +121,10 @@
         grid-template-rows: auto 1fr;
         align-items: start;
         justify-items: center;
-        padding: 36px clamp(16px, 3vw, 28px) 40px;
-        gap: 28px; /* more space between titles and coverflow */
+
+        /* Increased top padding (double) and bigger gap to stage */
+        padding: 72px clamp(16px, 3vw, 28px) 48px;
+        row-gap: 56px;
       }
 
       /* TITLES */
@@ -137,14 +140,16 @@
           0.5px -0.5px 0 #000,
           -0.5px -0.5px 0 #000;
       }
+      /* Split-the-difference sizing and extra breathing room */
       .title--name {
-        /* Split the difference: smaller than before, still lead line */
         font-weight: 700;
         font-size: clamp(26px, 4.2vw, 44px);
-        letter-spacing: 0.6px; /* airy, stylized feel */
-        line-height: 1.28; /* more breathing room */
-        margin-top: 4px;
-        margin-bottom: 10px; /* extra space before subtitle */
+        letter-spacing: 0.6px;
+        line-height: 1.28;
+
+        /* Doubled vs earlier: more space above name and before subtitle */
+        margin-top: 16px;
+        margin-bottom: 20px;
       }
       .title--subtitle {
         font-weight: 600;
@@ -152,17 +157,20 @@
         letter-spacing: 0.35px;
         line-height: 1.32;
         color: hsl(210 22% 92%);
-        margin-bottom: 8px; /* space below subtitle before coverflow block */
+
+        /* Double spacing below subtitle before coverflow */
+        margin-bottom: 16px;
       }
 
+      /* Stage centered in page with more intrinsic height and gap */
       .stage {
         width: min(92vw, 1300px);
-        min-height: min(64vh, 700px);
+        min-height: min(70vh, 760px);
         display: grid;
         grid-template-rows: auto 1fr auto;
         align-items: center;
         justify-items: center;
-        gap: 26px; /* a bit more vertical breath inside the stage */
+        gap: 32px; /* larger breathing room between lines and flow */
         perspective: 1400px;
         position: relative;
       }
@@ -266,7 +274,7 @@
         width: 44px;
         height: 44px;
         border-radius: 999px;
-        color: var(--arrow-color);
+        color: hsl(var(--arrow-color));
         background: var(--arrow-bg);
         border: 1px solid var(--arrow-border);
         backdrop-filter: blur(6px) saturate(120%);
@@ -374,23 +382,23 @@
       }
 
       @media (max-width: 640px) {
-        :root {
-          --card-gap: 90px;
-          --tilt: 14deg;
-          --side-scale: 0.72;
-          --card-w: 520px;
-          --focus-scale: 1.04;
-          --meta-gap: 58px;
-        }
         .wrap {
-          gap: 22px;
+          padding: 64px 16px 36px;
+          row-gap: 44px;
+        }
+        .stage {
+          min-height: 66vh;
+          gap: 26px;
         }
         .title--name {
           font-size: clamp(24px, 6vw, 36px);
           letter-spacing: 0.5px;
+          margin-top: 12px;
+          margin-bottom: 16px;
         }
         .title--subtitle {
           font-size: clamp(15px, 3.8vw, 20px);
+          margin-bottom: 14px;
         }
       }
     </style>
@@ -453,10 +461,26 @@
         { label: "WT", img: "WT.png", meta: "2013" },
         { label: "NCSU", img: "NCSU.png", meta: "2015" },
         { label: "SecSet", img: "SecSet.png", meta: "2019" },
-        { label: "Sec+", img: "Sec+.png", meta: "Since 2020\nStatus: Active" },
-        { label: "Linux+", img: "Linux+.png", meta: "Since 2024\nStatus: Active" },
-        { label: "CySA+", img: "CySA+.png", meta: "Since 2025\nStatus: Active" },
-        { label: "CSAP", img: "CSAP.png", meta: "Since 2025\nStatus: Active" }
+        {
+          label: "Sec+",
+          img: "Sec+.png",
+          meta: "Since 2020\nStatus: Active"
+        },
+        {
+          label: "Linux+",
+          img: "Linux+.png",
+          meta: "Since 2024\nStatus: Active"
+        },
+        {
+          label: "CySA+",
+          img: "CySA+.png",
+          meta: "Since 2025\nStatus: Active"
+        },
+        {
+          label: "CSAP",
+          img: "CSAP.png",
+          meta: "Since 2025\nStatus: Active"
+        }
       ];
 
       const aspect = { "Linux+.png": "22 / 17" };

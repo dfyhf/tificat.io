@@ -27,12 +27,16 @@
         --muted: 0 0% 82%;
         --line: 0 0% 100% / 0.28;
         --line-fade: 0 0% 100% / 0;
+
         --radius: 24px;
 
         --arrow-bg: rgba(20, 20, 20, 0.45);
         --arrow-bg-hover: rgba(30, 30, 30, 0.65);
         --arrow-border: rgba(255, 255, 255, 0.18);
         --arrow-color: rgba(255, 255, 255, 0.88);
+
+        /* Controls vertical positioning of meta text relative to focused card and bottom line */
+        --meta-gap: 72px; /* desktop default */
       }
 
       * {
@@ -97,14 +101,13 @@
         z-index: 2;
         min-height: 100dvh;
         display: grid;
-        grid-template-rows: auto 1fr auto;
+        grid-template-rows: auto auto 1fr;
         align-items: center;
         justify-items: center;
         padding: 40px clamp(16px, 3vw, 28px);
-        gap: 24px;
+        gap: 14px; /* tighter spacing between titles and stage */
       }
 
-      /* Title updated: split across lines, no pipe */
       .site-title {
         margin: 0;
         font-size: clamp(18px, 2.8vw, 28px);
@@ -112,6 +115,17 @@
         text-align: center;
         text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
         line-height: 1.25;
+      }
+
+      /* Wrapper to fine-tune spacing for the second title */
+      .title-block {
+        margin-top: 4px;
+        margin-bottom: 6px;
+      }
+
+      /* This title uses pre-line to render the blank line we include in HTML,
+         ensuring a visible space between the two lines */
+      .site-title--two-line {
         white-space: pre-line;
       }
 
@@ -162,7 +176,6 @@
         z-index: 2;
       }
 
-      /* Card button: neutral visuals */
       .card {
         position: absolute;
         width: min(var(--card-w), 78vw);
@@ -217,7 +230,6 @@
         backface-visibility: hidden;
       }
 
-      /* Side arrow buttons */
       .nav-arrow {
         position: absolute;
         top: 50%;
@@ -260,7 +272,6 @@
         display: block;
       }
 
-      /* Invisible click zones for easy prev/next clicks */
       .zone {
         position: absolute;
         top: 0;
@@ -283,13 +294,13 @@
         pointer-events: auto;
       }
 
-      /* Meta moved: now inside stage and positioned near bottom,
-         centered between focused asset and bottom border */
+      /* Meta positioned between focused card and bottom line */
       .meta {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: 14px;
+        /* Bottom line sits ~14px above stage edge; place meta halfway up the desired gap */
+        bottom: calc(14px + (var(--meta-gap)) / 2);
         text-align: center;
         line-height: 1.35;
         color: hsl(var(--muted));
@@ -341,6 +352,8 @@
           --side-scale: 0.72;
           --card-w: 520px;
           --focus-scale: 1.04;
+
+          --meta-gap: 58px; /* mobile tuning */
         }
         .nav-left {
           left: 2px;
@@ -360,10 +373,11 @@
         <h1 class="site-title">cer.tificat.io/ns</h1>
       </header>
 
-      <!-- Title updated: two lines, no pipe -->
-      <header>
-        <h1 class="site-title">
+      <!-- Two-line title, with a visible blank line between lines -->
+      <header class="title-block">
+        <h1 class="site-title site-title--two-line">
           Chris O'Hara
+
           Academic and Professional Certifications
         </h1>
       </header>
@@ -375,7 +389,6 @@
 
         <div class="line" aria-hidden="true"></div>
 
-        <!-- Side arrows -->
         <button class="nav-arrow nav-left" id="arrowPrev" aria-label="Previous">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path
@@ -393,16 +406,13 @@
           </svg>
         </button>
 
-        <!-- Click zones -->
         <div class="zone zone-left" id="zoneLeft" aria-hidden="true"></div>
         <div class="zone zone-right" id="zoneRight" aria-hidden="true"></div>
 
-        <!-- Meta relocated into stage -->
         <div id="meta" class="meta" aria-live="polite"></div>
       </main>
     </div>
 
-    <!-- Zoom overlay -->
     <div id="zoomOverlay" class="zoom-overlay" role="dialog" aria-modal="true">
       <div class="zoom-content">
         <img id="zoomImg" alt="" />
@@ -431,7 +441,6 @@
       const zoneLeft = document.getElementById("zoneLeft");
       const zoneRight = document.getElementById("zoneRight");
 
-      // Zoom elements
       const zoomOverlay = document.getElementById("zoomOverlay");
       const zoomImg = document.getElementById("zoomImg");
 
@@ -465,7 +474,6 @@
         card.appendChild(scale);
         flow.appendChild(card);
 
-        // Clicking the card: if focused, zoom; otherwise advance next
         card.addEventListener("click", (e) => {
           const isFocused = card.getAttribute("aria-selected") === "true";
           if (isFocused) {
@@ -517,9 +525,7 @@
           card.setAttribute("aria-selected", abs === 0 ? "true" : "false");
           card.tabIndex = abs === 0 ? 0 : -1;
 
-          if (abs === 0) {
-            lastFocusedCard = card;
-          }
+          if (abs === 0) lastFocusedCard = card;
         }
         meta.textContent = items[index].meta;
       }
@@ -545,7 +551,6 @@
         render();
       }
 
-      // Side arrows
       arrowNext.addEventListener("click", (e) => {
         e.stopPropagation();
         next();
@@ -555,11 +560,9 @@
         prev();
       });
 
-      // Click zones
       zoneRight.addEventListener("click", () => next());
       zoneLeft.addEventListener("click", () => prev());
 
-      // Keyboard navigation
       window.addEventListener("keydown", (e) => {
         if (zoomOverlay.classList.contains("open")) {
           if (e.key === "Escape") closeZoom();
@@ -568,15 +571,16 @@
         if (e.key === "ArrowRight") next();
         else if (e.key === "ArrowLeft") prev();
         else if (e.key === "Enter" || e.key === " ") {
-          // If focused card is selected, open zoom
-          if (lastFocusedCard && lastFocusedCard.getAttribute("aria-selected") === "true") {
+          if (
+            lastFocusedCard &&
+            lastFocusedCard.getAttribute("aria-selected") === "true"
+          ) {
             const i = index;
             openZoom(items[i].img);
           }
         }
       });
 
-      // Drag/Swipe
       let startX = null;
       const start = (x) => (startX = x);
       const move = (x) => {
@@ -597,7 +601,6 @@
       window.addEventListener("pointercancel", end);
       window.addEventListener("pointerleave", end);
 
-      // Zoom control
       function openZoom(src) {
         zoomImg.src = src;
         zoomOverlay.classList.add("open");

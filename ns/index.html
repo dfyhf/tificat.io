@@ -6,17 +6,17 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>cer.tificat.io/ns</title>
-    <!-- Strong, legible type -->
+    <title>Chris O'Hara — Certifications</title>
+    <!-- Strong, legible type (Inter Tight) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        /* Blues + greys (less teal/oceanic) */
+        /* Blues + greys background (non-oceanic) */
         --bg-a: 220 18% 14%;
         --bg-b: 216 38% 24%;
         --bg-c: 210 28% 28%;
@@ -24,13 +24,14 @@
         --bg-e: 204 22% 22%;
         --blur: 30px;
 
+        /* Coverflow geometry */
         --card-w: 640px;
         --card-gap: 120px;
         --tilt: 16deg;
         --focus-scale: 1.06;
         --side-scale: 0.76;
 
-        /* Light steel-blue for primary text; cool grey for muted */
+        /* Text colors */
         --text: 210 30% 94%;
         --muted: 210 12% 80%;
 
@@ -39,7 +40,7 @@
 
         --radius: 24px;
 
-        /* Arrows neutral to match greys */
+        /* Arrows */
         --arrow-bg: rgba(18, 18, 22, 0.42);
         --arrow-bg-hover: rgba(26, 26, 30, 0.64);
         --arrow-border: rgba(255, 255, 255, 0.18);
@@ -71,7 +72,6 @@
         position: fixed;
         inset: 0;
         z-index: 0;
-        /* Multifocal gradient in blues/greys */
         background:
           radial-gradient(
               820px 820px at 18% 22%,
@@ -105,8 +105,8 @@
         -webkit-backdrop-filter: blur(16px) saturate(110%);
         background: linear-gradient(
           to bottom,
-          rgba(0, 0, 0, 0.1),
-          rgba(0, 0, 0, 0.2)
+          rgba(0, 0, 0, 0.08),
+          rgba(0, 0, 0, 0.18)
         );
       }
 
@@ -115,22 +115,23 @@
         z-index: 2;
         min-height: 100dvh;
         display: grid;
-        grid-template-rows: auto auto 1fr;
-        align-items: center;
+        grid-template-rows: auto 1fr;
+        align-items: start;
         justify-items: center;
-        padding: 40px clamp(16px, 3vw, 28px);
-        gap: 14px;
+        padding: 36px clamp(16px, 3vw, 28px) 40px;
+        gap: 18px;
       }
 
-      /* Titles: bold, masculine; thin black outline for punch */
-      .site-title {
-        margin: 0;
-        font-weight: 800;
-        letter-spacing: 0.2px;
+      /* TITLES
+         - Larger size for name
+         - Slightly lighter weight (700) and expanded letter-spacing for breath
+         - Increased line-height for clarity
+         - Thin black outline for both lines
+      */
+      .title {
         text-align: center;
-        line-height: 1.18;
+        margin: 0;
         color: hsl(var(--text));
-        /* Thin black outline */
         text-shadow:
           0 0 0.5px #000,
           0 0 0.5px #000,
@@ -139,16 +140,20 @@
           0.5px -0.5px 0 #000,
           -0.5px -0.5px 0 #000;
       }
-      .site-title--brand {
-        font-size: clamp(20px, 3vw, 30px);
-      }
-      .title-block {
+      .title--name {
+        font-weight: 700; /* less “fat” than 800 */
+        font-size: clamp(28px, 5.2vw, 56px);
+        letter-spacing: 0.6px; /* more air between letters */
+        line-height: 1.22; /* more breathing room per line */
         margin-top: 2px;
-        margin-bottom: 4px;
       }
-      .site-title--two-line {
-        font-size: clamp(22px, 3.2vw, 32px);
-        white-space: pre-line; /* preserve intentional blank line */
+      .title--subtitle {
+        font-weight: 600;
+        font-size: clamp(16px, 2.2vw, 26px);
+        letter-spacing: 0.35px;
+        line-height: 1.28;
+        margin-top: 6px; /* space between name and subtitle */
+        color: hsl(210 22% 92%);
       }
 
       .stage {
@@ -325,8 +330,8 @@
         text-align: center;
         line-height: 1.35;
         color: hsl(var(--muted));
-        font-weight: 700;
-        letter-spacing: 0.15px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
         font-size: clamp(14px, 1.8vw, 16px);
         white-space: pre-line;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
@@ -378,11 +383,8 @@
           --focus-scale: 1.04;
           --meta-gap: 58px;
         }
-        .nav-left {
-          left: 2px;
-        }
-        .nav-right {
-          right: 2px;
+        .title--name {
+          letter-spacing: 0.4px; /* slightly tighter on small screens */
         }
       }
     </style>
@@ -392,17 +394,12 @@
     <div class="veil" aria-hidden="true"></div>
 
     <div class="wrap">
+      <!-- Brand line removed; name to the top -->
       <header>
-        <h1 class="site-title site-title--brand">cer.tificat.io/ns</h1>
-      </header>
-
-      <!-- Two-line title with intentional blank line for separation -->
-      <header class="title-block">
-        <h1 class="site-title site-title--two-line">
-          Chris O'Hara
-
+        <h1 class="title title--name">Chris O'Hara</h1>
+        <div class="title title--subtitle">
           Academic and Professional Certifications
-        </h1>
+        </div>
       </header>
 
       <main class="stage" aria-label="Certification coverflow">

@@ -8,11 +8,11 @@
     />
     <title>Chris O'Hara — Certifications</title>
 
-    <!-- Stylized, legible display type -->
+    <!-- Stylized, legible display type: Inknut Antiqua -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -63,8 +63,8 @@
       }
       body {
         margin: 0;
-        font-family: "Outfit", ui-sans-serif, system-ui, -apple-system,
-          Segoe UI, Roboto, Helvetica, Arial;
+        font-family: "Inknut Antiqua", ui-serif, Georgia, Cambria,
+          "Times New Roman", Times, serif;
         color: hsl(var(--text));
         background: hsl(220 16% 12%);
         overflow: hidden;
@@ -112,7 +112,7 @@
         );
       }
 
-      /* Layout container: more top space and larger gaps, to center coverflow */
+      /* Layout container: generous top space and large gap to center coverflow */
       .wrap {
         position: relative;
         z-index: 2;
@@ -122,17 +122,16 @@
         align-items: start;
         justify-items: center;
 
-        /* Increased top padding (double) and bigger gap to stage */
         padding: 72px clamp(16px, 3vw, 28px) 48px;
         row-gap: 56px;
       }
 
-      /* TITLES */
+      /* TITLES (Inknut is naturally heavy; use moderate weights + spacing) */
       .title {
         text-align: center;
         margin: 0;
         color: hsl(var(--text));
-        /* Thin black outline for punch without heaviness */
+        /* Thin black outline for clarity against gradients */
         text-shadow:
           0 0 0.5px #000,
           0.5px 0.5px 0 #000,
@@ -140,25 +139,22 @@
           0.5px -0.5px 0 #000,
           -0.5px -0.5px 0 #000;
       }
-      /* Split-the-difference sizing and extra breathing room */
       .title--name {
-        font-weight: 700;
+        font-weight: 700; /* Inknut gets bold quickly; 700 is plenty */
         font-size: clamp(26px, 4.2vw, 44px);
-        letter-spacing: 0.6px;
+        letter-spacing: 0.4px; /* subtle spacing for readability */
         line-height: 1.28;
 
-        /* Doubled vs earlier: more space above name and before subtitle */
         margin-top: 16px;
         margin-bottom: 20px;
       }
       .title--subtitle {
         font-weight: 600;
         font-size: clamp(16px, 2.3vw, 24px);
-        letter-spacing: 0.35px;
-        line-height: 1.32;
+        letter-spacing: 0.25px;
+        line-height: 1.34;
         color: hsl(210 22% 92%);
 
-        /* Double spacing below subtitle before coverflow */
         margin-bottom: 16px;
       }
 
@@ -170,7 +166,7 @@
         grid-template-rows: auto 1fr auto;
         align-items: center;
         justify-items: center;
-        gap: 32px; /* larger breathing room between lines and flow */
+        gap: 32px;
         perspective: 1400px;
         position: relative;
       }
@@ -338,7 +334,7 @@
         line-height: 1.35;
         color: hsl(var(--muted));
         font-weight: 600;
-        letter-spacing: 0.2px;
+        letter-spacing: 0.1px;
         font-size: clamp(14px, 1.8vw, 16px);
         white-space: pre-line;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
@@ -392,7 +388,7 @@
         }
         .title--name {
           font-size: clamp(24px, 6vw, 36px);
-          letter-spacing: 0.5px;
+          letter-spacing: 0.35px;
           margin-top: 12px;
           margin-bottom: 16px;
         }
@@ -549,9 +545,8 @@
           if (Math.abs(d) > n / 2) d = d > 0 ? d - n : d + n;
 
           const abs = Math.abs(d);
-          const sign = Math.sign(d);
 
-          const angle = sign * -1 * toRad(getVar("--tilt", 16));
+          const angle = Math.sign(d) * -1 * toRad(getVar("--tilt", 16));
           const spread = getVar("--card-gap", 120);
           const sideScale = getVar("--side-scale", 0.76);
           const focusScale = getVar("--focus-scale", 1.06);

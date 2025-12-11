@@ -83,24 +83,14 @@
         row-gap: 28px; /* gap between titles and stage on mobile */
       }
 
-      /* TITLES with letter outlines (no boxes) */
       .title {
-        margin: 0;
-        text-align: center;
-        background: transparent;
-        padding: 0;
-        border: 0;
-        display: block;
-
-        /* crisp black stroke around glyphs */
-        -webkit-text-stroke: 1px #000;
-        text-stroke: 2px #000;
-
-        /* keep fill and subtle readability shadow */
-        color: hsl(var(--text));
+        text-align: center; margin: 0; color: hsl(var(--text));
         text-shadow:
-          0 0 0.5px rgba(0,0,0,0.6),
-          0 1px 1px rgba(0,0,0,0.35);
+          0 0 0.5px #000,
+          0.5px 0.5px 0 #000,
+          -0.5px 0.5px 0 #000,
+          0.5px -0.5px 0 #000,
+          -0.5px -0.5px 0 #000;
       }
       .title--name {
         font-weight: 700; font-size: clamp(26px, 4.2vw, 44px);
@@ -110,10 +100,7 @@
       .title--subtitle {
         font-weight: 600; font-size: clamp(16px, 2.3vw, 24px);
         letter-spacing: 0.25px; line-height: 1.34;
-        color: hsl(var(--text)); /* keep same fill */
-        -webkit-text-stroke: 1.5px #000; /* slightly lighter stroke */
-        text-stroke: 1.5px #000;
-        margin-bottom: 16px;
+        color: hsl(210 22% 92%); margin-bottom: 16px;
       }
 
       .stage {
@@ -204,8 +191,12 @@
 
       /* Desktop-only: use larger meta-gap but same formula to keep meta centered */
       @media (min-width: 900px) {
-        :root { --meta-gap: 96px; }
-        .meta { bottom: calc(14px + (var(--meta-gap)) / 2); }
+        :root {
+          --meta-gap: 96px; /* tune ±4–8px if needed */
+        }
+        .meta {
+          bottom: calc(14px + (var(--meta-gap)) / 2);
+        }
       }
 
       /* Zoom overlay */

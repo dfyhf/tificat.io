@@ -7,35 +7,58 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <title>cer.tificat.io/ns</title>
+    <!-- Font: Inter Tight (masculine, modern, highly legible) -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --bg-a: 27 20% 18%;
-        --bg-b: 12 28% 24%;
-        --bg-c: 20 30% 28%;
-        --bg-d: 4 36% 20%;
-        --bg-e: 30 18% 22%;
-        --blur: 28px;
+        /* Background palette: deep blue/teal/green with multifocal glows */
+        --bg-a: 215 58% 14%;
+        --bg-b: 205 72% 24%;
+        --bg-c: 187 68% 26%;
+        --bg-d: 170 62% 20%;
+        --bg-e: 199 64% 22%;
+        --blur: 32px;
 
+        /* Card sizing/coverflow */
         --card-w: 640px;
         --card-gap: 120px;
         --tilt: 16deg;
         --focus-scale: 1.06;
         --side-scale: 0.76;
 
-        --shadow: 0 18px 64px rgba(0, 0, 0, 0.36);
-        --text: 0 0% 96%;
-        --muted: 0 0% 82%;
-        --line: 0 0% 100% / 0.28;
-        --line-fade: 0 0% 100% / 0;
+        /* Text colors tuned for legibility on cool background */
+        --text: 190 100% 95%;
+        --muted: 190 40% 84%;
+
+        /* Lines and accents */
+        --line: 190 100% 98% / 0.28;
+        --line-fade: 190 100% 98% / 0;
 
         --radius: 24px;
 
-        --arrow-bg: rgba(20, 20, 20, 0.45);
-        --arrow-bg-hover: rgba(30, 30, 30, 0.65);
-        --arrow-border: rgba(255, 255, 255, 0.18);
-        --arrow-color: rgba(255, 255, 255, 0.88);
+        /* Arrow buttons */
+        --arrow-bg: rgba(10, 30, 40, 0.42);
+        --arrow-bg-hover: rgba(18, 48, 58, 0.64);
+        --arrow-border: rgba(180, 220, 230, 0.22);
+        --arrow-color: rgba(230, 250, 255, 0.92);
 
-        /* Controls vertical positioning of meta text relative to focused card and bottom line */
+        /* Shadows */
+        --shadow: 0 18px 64px rgba(0, 20, 30, 0.46);
+
+        /* Meta spacing control */
         --meta-gap: 72px; /* desktop default */
       }
 
@@ -48,10 +71,11 @@
       }
       body {
         margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-          Helvetica, Arial;
+        font-family: "Inter Tight", ui-sans-serif, system-ui, -apple-system,
+          Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+          "Segoe UI Emoji";
         color: hsl(var(--text));
-        background: hsl(25 15% 18%);
+        background: hsl(215 58% 12%);
         overflow: hidden;
       }
 
@@ -59,26 +83,29 @@
         position: fixed;
         inset: 0;
         z-index: 0;
-        background: radial-gradient(
-            800px 800px at 15% 20%,
-            hsl(var(--bg-b) / 0.9),
-            transparent 70%
-          ),
+        background:
+          /* focal glows */
           radial-gradient(
-            900px 900px at 85% 30%,
-            hsl(var(--bg-c) / 0.9),
-            transparent 70%
-          ),
+              850px 850px at 18% 22%,
+              hsl(var(--bg-b) / 0.95),
+              transparent 68%
+            ),
           radial-gradient(
-            700px 700px at 30% 80%,
-            hsl(var(--bg-d) / 0.85),
-            transparent 70%
-          ),
+              980px 980px at 82% 28%,
+              hsl(var(--bg-c) / 0.9),
+              transparent 70%
+            ),
           radial-gradient(
-            700px 700px at 75% 75%,
-            hsl(var(--bg-e) / 0.8),
-            transparent 70%
-          ),
+              740px 740px at 28% 78%,
+              hsl(var(--bg-d) / 0.88),
+              transparent 72%
+            ),
+          radial-gradient(
+              760px 760px at 76% 74%,
+              hsl(var(--bg-e) / 0.86),
+              transparent 72%
+            ),
+          /* base sweep */
           linear-gradient(145deg, hsl(var(--bg-a)), hsl(var(--bg-d)));
         filter: blur(var(--blur));
         transform: scale(1.05);
@@ -87,12 +114,12 @@
         position: fixed;
         inset: 0;
         z-index: 1;
-        backdrop-filter: blur(18px) saturate(110%);
-        -webkit-backdrop-filter: blur(18px) saturate(110%);
+        backdrop-filter: blur(18px) saturate(115%);
+        -webkit-backdrop-filter: blur(18px) saturate(115%);
         background: linear-gradient(
           to bottom,
-          rgba(0, 0, 0, 0.08),
-          rgba(0, 0, 0, 0.18)
+          rgba(0, 10, 14, 0.12),
+          rgba(0, 12, 16, 0.22)
         );
       }
 
@@ -105,28 +132,32 @@
         align-items: center;
         justify-items: center;
         padding: 40px clamp(16px, 3vw, 28px);
-        gap: 14px; /* tighter spacing between titles and stage */
+        gap: 14px; /* compact vertical rhythm at top */
       }
 
+      /* Titles: bold, masculine, crisp with subtle glow */
       .site-title {
         margin: 0;
-        font-size: clamp(18px, 2.8vw, 28px);
-        font-weight: 650;
+        font-weight: 800;
+        letter-spacing: 0.2px;
         text-align: center;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
-        line-height: 1.25;
+        line-height: 1.2;
+        color: hsl(var(--text));
+        text-shadow:
+          0 2px 12px rgba(0, 40, 50, 0.48),
+          0 0 1px rgba(200, 255, 255, 0.2);
       }
-
-      /* Wrapper to fine-tune spacing for the second title */
+      /* Sizes tuned for visibility without overpowering */
+      .site-title--brand {
+        font-size: clamp(20px, 3vw, 30px);
+      }
       .title-block {
-        margin-top: 4px;
-        margin-bottom: 6px;
+        margin-top: 2px;
+        margin-bottom: 4px;
       }
-
-      /* This title uses pre-line to render the blank line we include in HTML,
-         ensuring a visible space between the two lines */
       .site-title--two-line {
-        white-space: pre-line;
+        font-size: clamp(22px, 3.2vw, 32px);
+        white-space: pre-line; /* keeps the intentional blank line */
       }
 
       .stage {
@@ -195,14 +226,14 @@
         outline: none;
       }
       .card:focus-visible {
-        outline: 2px solid rgba(255, 255, 255, 0.6);
+        outline: 2px solid rgba(180, 240, 250, 0.7);
         outline-offset: 4px;
       }
 
       .shadow-wrap {
         position: absolute;
         inset: 0;
-        filter: drop-shadow(0 18px 64px rgba(0, 0, 0, 0.36));
+        filter: drop-shadow(0 18px 64px rgba(0, 25, 35, 0.46));
         pointer-events: none;
       }
 
@@ -299,14 +330,16 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        /* Bottom line sits ~14px above stage edge; place meta halfway up the desired gap */
         bottom: calc(14px + (var(--meta-gap)) / 2);
         text-align: center;
         line-height: 1.35;
-        color: hsl(var(--muted));
+        color: hsl(var(--text));
+        opacity: 0.9;
+        font-weight: 700;
+        letter-spacing: 0.15px;
         font-size: clamp(14px, 1.8vw, 16px);
         white-space: pre-line;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+        text-shadow: 0 2px 10px rgba(0, 30, 40, 0.55);
         min-height: calc(1em * 1.35 * 2);
         display: grid;
         align-items: center;
@@ -322,7 +355,7 @@
         display: none;
         align-items: center;
         justify-content: center;
-        background: rgba(0, 0, 0, 0.55);
+        background: rgba(0, 20, 26, 0.6);
         backdrop-filter: blur(6px) saturate(120%);
         -webkit-backdrop-filter: blur(6px) saturate(120%);
       }
@@ -335,7 +368,8 @@
         box-shadow: var(--shadow);
         border-radius: var(--radius);
         overflow: hidden;
-        background: #111;
+        background: #0a1a20;
+        border: 1px solid rgba(170, 230, 240, 0.18);
       }
       .zoom-content img {
         display: block;
@@ -370,10 +404,10 @@
 
     <div class="wrap">
       <header>
-        <h1 class="site-title">cer.tificat.io/ns</h1>
+        <h1 class="site-title site-title--brand">cer.tificat.io/ns</h1>
       </header>
 
-      <!-- Two-line title, with a visible blank line between lines -->
+      <!-- Two-line title with intentional blank line for separation -->
       <header class="title-block">
         <h1 class="site-title site-title--two-line">
           Chris O'Hara
@@ -575,8 +609,7 @@
             lastFocusedCard &&
             lastFocusedCard.getAttribute("aria-selected") === "true"
           ) {
-            const i = index;
-            openZoom(items[i].img);
+            openZoom(items[index].img);
           }
         }
       });

@@ -112,7 +112,7 @@
         );
       }
 
-      /* Layout container: increase top spacing by 50% to add space above name */
+      /* Layout container: reduce top padding by 80% (108px → 22px) */
       .wrap {
         position: relative;
         z-index: 2;
@@ -122,12 +122,11 @@
         align-items: start;
         justify-items: center;
 
-        /* 72px → 108px to enlarge space above the name by 50% */
-        padding: 108px clamp(16px, 3vw, 28px) 48px;
+        padding: 22px clamp(16px, 3vw, 28px) 48px;
         row-gap: 56px;
       }
 
-      /* TITLES (Inknut is naturally heavy; moderate weights + spacing) */
+      /* TITLES */
       .title {
         text-align: center;
         margin: 0;
@@ -145,10 +144,8 @@
         letter-spacing: 0.4px;
         line-height: 1.28;
 
-        /* Eliminated 80% of space above the name: 8px → 2px */
-        margin-top: 2px;
-        /* Keep 36px space before subtitle from your last version */
-        margin-bottom: 36px;
+        margin-top: 8px;     /* unchanged from the version you liked */
+        margin-bottom: 36px; /* keep spacing to subtitle */
       }
       .title--subtitle {
         font-weight: 600;
@@ -156,12 +153,10 @@
         letter-spacing: 0.25px;
         line-height: 1.34;
         color: hsl(210 22% 92%);
-
-        /* Keep as in your last version */
         margin-bottom: 16px;
       }
 
-      /* Stage: increased internal gap (from your last version) */
+      /* Stage (kept as in your version with larger gap) */
       .stage {
         width: min(92vw, 1300px);
         min-height: min(70vh, 760px);
@@ -169,7 +164,6 @@
         grid-template-rows: auto 1fr auto;
         align-items: center;
         justify-items: center;
-        /* 22px → 33px (kept as in last version you posted) */
         gap: 33px;
         perspective: 1400px;
         position: relative;
@@ -208,8 +202,6 @@
         transform-style: preserve-3d;
         user-select: none;
         z-index: 2;
-
-        /* Keep the slight lift from the loved version */
         transform: translateY(-10px);
       }
 
@@ -385,14 +377,13 @@
       }
 
       @media (max-width: 640px) {
-        /* Keep proportional increases on mobile */
         .wrap {
-          padding: 96px 16px 36px; /* 64px → 96px */
+          padding: 22px 16px 36px;
           row-gap: 44px;
         }
         .stage {
           min-height: 66vh;
-          gap: 33px; /* 22px → 33px */
+          gap: 33px;
         }
         .flow {
           transform: translateY(-8px);
@@ -400,8 +391,8 @@
         .title--name {
           font-size: clamp(24px, 6vw, 36px);
           letter-spacing: 0.35px;
-          margin-top: 2px;     /* 80% reduction on mobile too */
-          margin-bottom: 36px; /* keep */
+          margin-top: 8px;
+          margin-bottom: 36px;
         }
         .title--subtitle {
           font-size: clamp(15px, 3.8vw, 20px);
@@ -585,8 +576,6 @@
           card.style.filter = "blur(" + blur + "px)";
           card.setAttribute("aria-selected", abs === 0 ? "true" : "false");
           card.tabIndex = abs === 0 ? 0 : -1;
-
-          if (abs === 0) lastFocusedCard = card;
         }
         meta.textContent = items[index].meta;
       }
@@ -612,7 +601,6 @@
         render();
       }
 
-      // Side arrows
       arrowNext.addEventListener("click", (e) => {
         e.stopPropagation();
         next();
@@ -622,26 +610,12 @@
         prev();
       });
 
-      // Click zones
       zoneRight.addEventListener("click", () => next());
       zoneLeft.addEventListener("click", () => prev());
 
-      // Keyboard navigation and zoom
       window.addEventListener("keydown", (e) => {
-        if (zoomOverlay.classList.contains("open")) {
-          if (e.key === "Escape") closeZoom();
-          return;
-        }
         if (e.key === "ArrowRight") next();
         else if (e.key === "ArrowLeft") prev();
-        else if (e.key === "Enter" || e.key === " ") {
-          if (
-            lastFocusedCard &&
-            lastFocusedCard.getAttribute("aria-selected") === "true"
-          ) {
-            openZoom(items[index].img);
-          }
-        }
       });
 
       // Drag/Swipe
@@ -664,17 +638,6 @@
       window.addEventListener("pointerup", end);
       window.addEventListener("pointercancel", end);
       window.addEventListener("pointerleave", end);
-
-      // Zoom control
-      function openZoom(src) {
-        zoomImg.src = src;
-        zoomOverlay.classList.add("open");
-      }
-      function closeZoom() {
-        zoomOverlay.classList.remove("open");
-        zoomImg.src = "";
-      }
-      zoomOverlay.addEventListener("click", closeZoom);
 
       render();
     </script>

@@ -172,7 +172,7 @@
         min-height: calc(1em * 1.35 * 2); display: grid; align-items: center; z-index: 4; pointer-events: none;
       }
 
-      /* Desktop-only spacing refinements */
+      /* Desktop-only spacing refinements (titles spacing) */
       @media (min-width: 900px) {
         .wrap {
           padding: 48px clamp(16px, 3vw, 28px) 48px; /* more above name */
@@ -186,6 +186,13 @@
         .flow { transform: translateY(-8px); }
         .title--name { font-size: clamp(24px, 6vw, 36px); letter-spacing: 0.35px; margin-top: 8px; margin-bottom: 36px; }
         .title--subtitle { font-size: clamp(15px, 3.8vw, 20px); margin-bottom: 16px; }
+      }
+
+      /* Desktop-only: nudge meta lower so it centers between card and bottom line */
+      @media (min-width: 900px) {
+        .meta {
+          bottom: calc(14px + (var(--meta-gap)) / 2 + 12px);
+        }
       }
 
       /* Zoom overlay */

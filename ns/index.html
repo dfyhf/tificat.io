@@ -2,10 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <title>Chris O'Hara — Certifications</title>
 
-    <!-- Stylized, legible display type: Inknut Antiqua -->
+    <!-- Inknut Antiqua -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,11 +18,28 @@
 
     <style>
       :root {
-        --bg-a: 220 18% 14%;
-        --bg-b: 216 38% 24%;
-        --bg-c: 210 28% 28%;
-        --bg-d: 220 16% 18%;
-        --bg-e: 204 22% 22%;
+        /* Your palette (OKLCH) */
+        --bg-dark: oklch(0.1 0.015 266);
+        --bg: oklch(0.15 0.015 266);
+        --bg-light: oklch(0.2 0.015 266);
+        --text: oklch(0.96 0.03 266);
+        --text-muted: oklch(0.76 0.03 266);
+        --highlight: oklch(0.5 0.03 266);
+        --border: oklch(0.4 0.03 266);
+        --border-muted: oklch(0.3 0.03 266);
+        --primary: oklch(0.76 0.1 266);
+        --secondary: oklch(0.76 0.1 86);
+        --danger: oklch(0.7 0.05 30);
+        --warning: oklch(0.7 0.05 100);
+        --success: oklch(0.7 0.05 160);
+        --info: oklch(0.7 0.05 260);
+
+        /* Site tokens mapped to your palette */
+        --bg-a: 0 0% 0%; /* unused with OKLCH; keep placeholder */
+        --bg-b: 0 0% 0%;
+        --bg-c: 0 0% 0%;
+        --bg-d: 0 0% 0%;
+        --bg-e: 0 0% 0%;
         --blur: 30px;
 
         --card-w: 640px;
@@ -28,171 +48,329 @@
         --focus-scale: 1.06;
         --side-scale: 0.76;
 
-        --text: 210 30% 94%;
-        --muted: 210 12% 80%;
-        --line: 210 40% 96% / 0.26;
-        --line-fade: 210 40% 96% / 0;
+        /* Use your text colors */
+        --text-color: var(--text);
+        --muted-color: var(--text-muted);
+
+        /* Lines and fades leverage border colors */
+        --line-color: color-mix(in oklab, var(--text) 85%, transparent);
+        --line-fade: color-mix(in oklab, var(--text) 0%, transparent);
 
         --radius: 24px;
 
-        --arrow-bg: rgba(18, 18, 22, 0.42);
-        --arrow-bg-hover: rgba(26, 26, 30, 0.64);
-        --arrow-border: rgba(255, 255, 255, 0.18);
-        --arrow-color: rgba(245, 245, 245, 0.9);
+        /* Arrows/buttons using subtle glass over your bg */
+        --arrow-bg: color-mix(in oklab, var(--bg-dark) 60%, transparent);
+        --arrow-bg-hover: color-mix(in oklab, var(--bg) 60%, transparent);
+        --arrow-border: color-mix(in oklab, var(--border) 55%, transparent);
+        --arrow-color: color-mix(in oklab, var(--text) 92%, white 8%);
 
-        --shadow: 0 18px 64px rgba(0, 0, 0, 0.46);
+        --shadow: 0 18px 64px color-mix(in oklab, black 55%, transparent);
 
-        /* Baseline meta spacing used by the centering formula */
         --meta-gap: 72px;
       }
 
-      * { box-sizing: border-box; }
-      html, body { height: 100%; }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
       body {
         margin: 0;
-        font-family: "Inknut Antiqua", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-        color: hsl(var(--text));
-        background: hsl(220 16% 12%);
+        font-family: "Inknut Antiqua", ui-serif, Georgia, Cambria,
+          "Times New Roman", Times, serif;
+        color: var(--text-color);
+        background: var(--bg-dark);
         overflow: hidden;
       }
 
+      /* Background uses your bg shades */
       .bg {
-        position: fixed; inset: 0; z-index: 0;
+        position: fixed;
+        inset: 0;
+        z-index: 0;
         background:
-          radial-gradient(820px 820px at 18% 22%, hsl(var(--bg-b) / 0.9), transparent 70%),
-          radial-gradient(920px 920px at 82% 28%, hsl(var(--bg-c) / 0.85), transparent 70%),
-          radial-gradient(720px 720px at 28% 78%, hsl(var(--bg-d) / 0.85), transparent 70%),
-          radial-gradient(760px 760px at 76% 74%, hsl(var(--bg-e) / 0.8), transparent 70%),
-          linear-gradient(145deg, hsl(var(--bg-a)), hsl(var(--bg-d)));
+          radial-gradient(820px 820px at 18% 22%, color-mix(in oklab, var(--bg) 85%, transparent), transparent 70%),
+          radial-gradient(920px 920px at 82% 28%, color-mix(in oklab, var(--bg-light) 85%, transparent), transparent 70%),
+          radial-gradient(720px 720px at 28% 78%, color-mix(in oklab, var(--bg) 80%, transparent), transparent 70%),
+          radial-gradient(760px 760px at 76% 74%, color-mix(in oklab, var(--bg-light) 80%, transparent), transparent 70%),
+          linear-gradient(145deg, var(--bg-dark), var(--bg));
         filter: blur(var(--blur));
         transform: scale(1.05);
       }
       .veil {
-        position: fixed; inset: 0; z-index: 1;
+        position: fixed;
+        inset: 0;
+        z-index: 1;
         backdrop-filter: blur(16px) saturate(110%);
         -webkit-backdrop-filter: blur(16px) saturate(110%);
-        background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.18));
+        background: linear-gradient(
+          to bottom,
+          color-mix(in oklab, black 8%, transparent),
+          color-mix(in oklab, black 18%, transparent)
+        );
       }
 
       /* Mobile-first layout you approved */
       .wrap {
-        position: relative; z-index: 2; min-height: 100dvh;
-        display: grid; grid-template-rows: auto 1fr;
-        align-items: start; justify-items: center;
+        position: relative;
+        z-index: 2;
+        min-height: 100dvh;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        align-items: start;
+        justify-items: center;
         padding: 36px clamp(16px, 3vw, 28px) 48px;
-        row-gap: 28px; /* gap between titles and stage on mobile */
+        row-gap: 28px;
       }
 
+      /* Titles with letter outlines (no boxes) */
       .title {
-        text-align: center; margin: 0; color: hsl(var(--text));
+        margin: 0;
+        text-align: center;
+        background: transparent;
+        padding: 0;
+        border: 0;
+        display: block;
+
+        -webkit-text-stroke: 2px #000;
+        text-stroke: 2px #000;
+
+        color: var(--text-color);
         text-shadow:
-          0 0 0.5px #000,
-          0.5px 0.5px 0 #000,
-          -0.5px 0.5px 0 #000,
-          0.5px -0.5px 0 #000,
-          -0.5px -0.5px 0 #000;
+          0 0 0.5px rgba(0, 0, 0, 0.6),
+          0 1px 1px rgba(0, 0, 0, 0.35);
       }
       .title--name {
-        font-weight: 700; font-size: clamp(26px, 4.2vw, 44px);
-        letter-spacing: 0.4px; line-height: 1.28;
-        margin-top: 8px; margin-bottom: 36px;
+        font-weight: 700;
+        font-size: clamp(26px, 4.2vw, 44px);
+        letter-spacing: 0.4px;
+        line-height: 1.28;
+        margin-top: 8px;
+        margin-bottom: 36px;
       }
       .title--subtitle {
-        font-weight: 600; font-size: clamp(16px, 2.3vw, 24px);
-        letter-spacing: 0.25px; line-height: 1.34;
-        color: hsl(210 22% 92%); margin-bottom: 16px;
+        font-weight: 600;
+        font-size: clamp(16px, 2.3vw, 24px);
+        letter-spacing: 0.25px;
+        line-height: 1.34;
+        color: var(--text-color);
+        -webkit-text-stroke: 1.5px #000;
+        text-stroke: 1.5px #000;
+        margin-bottom: 16px;
       }
 
       .stage {
-        width: min(92vw, 1300px); min-height: min(70vh, 760px);
-        display: grid; grid-template-rows: auto 1fr auto;
-        align-items: center; justify-items: center;
-        gap: 33px; perspective: 1400px; position: relative;
+        width: min(92vw, 1300px);
+        min-height: min(70vh, 760px);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        align-items: center;
+        justify-items: center;
+        gap: 33px;
+        perspective: 1400px;
+        position: relative;
       }
 
       .line {
-        width: 100%; height: 1px; position: relative; opacity: 0.9; z-index: 5;
+        width: 100%;
+        height: 1px;
+        position: relative;
+        opacity: 0.9;
+        z-index: 5;
       }
       .line::before {
-        content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 1px;
         background: linear-gradient(
           to right,
-          hsl(var(--line-fade)),
-          hsl(var(--line)) 14%,
-          hsl(var(--line)) 86%,
-          hsl(var(--line-fade))
+          var(--line-fade),
+          var(--line-color) 14%,
+          var(--line-color) 86%,
+          var(--line-fade)
         );
         filter: blur(0.2px);
       }
 
       .flow {
-        position: relative; width: 100%; height: 100%;
-        display: grid; place-items: center;
-        transform-style: preserve-3d; user-select: none; z-index: 2;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        transform-style: preserve-3d;
+        user-select: none;
+        z-index: 2;
         transform: translateY(-10px);
       }
 
       .card {
-        position: absolute; width: min(var(--card-w), 78vw);
-        border: 0; padding: 0; background: transparent;
-        appearance: none; -webkit-appearance: none;
-        transform-style: preserve-3d; cursor: pointer; z-index: 3;
-        transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 320ms, opacity 320ms;
+        position: absolute;
+        width: min(var(--card-w), 78vw);
+        border: 0;
+        padding: 0;
+        background: transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        transform-style: preserve-3d;
+        cursor: pointer;
+        z-index: 3;
+        transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          filter 320ms,
+          opacity 320ms;
       }
-      .card:focus { outline: none; }
-      .card:focus-visible { outline: 2px solid rgba(255,255,255,0.65); outline-offset: 4px; }
+      .card:focus-visible {
+        outline: 2px solid color-mix(in oklab, var(--primary) 70%, white 30%);
+        outline-offset: 4px;
+      }
 
-      .shadow-wrap { position: absolute; inset: 0; filter: drop-shadow(0 18px 64px rgba(0,0,0,0.46)); pointer-events: none; }
-      .scale { position: relative; width: 100%; height: 100%; display: grid; place-items: center; transform: scale(0.8); transform-origin: center; }
-      .thumb { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; border-radius: var(--radius); overflow: hidden; background: none; border: none; transform: translateZ(0); backface-visibility: hidden; }
+      .shadow-wrap {
+        position: absolute;
+        inset: 0;
+        filter: drop-shadow(0 18px 64px color-mix(in oklab, black 55%, transparent));
+        pointer-events: none;
+      }
+      .scale {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        transform: scale(0.8);
+        transform-origin: center;
+      }
+      .thumb {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+        object-position: center;
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: none;
+        border: none;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+      }
 
       .nav-arrow {
-        position: absolute; top: 50%; transform: translateY(-50%);
-        z-index: 6; display: grid; place-items: center;
-        width: 44px; height: 44px; border-radius: 999px;
-        color: var(--arrow-color); background: var(--arrow-bg);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 6;
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        color: var(--arrow-color);
+        background: var(--arrow-bg);
         border: 1px solid var(--arrow-border);
         backdrop-filter: blur(6px) saturate(120%);
         -webkit-backdrop-filter: blur(6px) saturate(120%);
-        cursor: pointer; opacity: 0; transition: opacity 180ms, background 160ms, transform 160ms;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 180ms, background 160ms, transform 160ms;
       }
-      .nav-arrow:hover, .nav-arrow:focus-visible { background: var(--arrow-bg-hover); opacity: 1; outline: none; }
-      .stage:hover .nav-arrow { opacity: 0.9; }
-      .nav-left { left: -4px; } .nav-right { right: -4px; }
-      .nav-arrow svg { width: 18px; height: 18px; display: block; }
+      .nav-arrow:hover,
+      .nav-arrow:focus-visible {
+        background: var(--arrow-bg-hover);
+        opacity: 1;
+        outline: none;
+      }
+      .stage:hover .nav-arrow {
+        opacity: 0.9;
+      }
+      .nav-left {
+        left: -4px;
+      }
+      .nav-right {
+        right: -4px;
+      }
+      .nav-arrow svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+      }
 
-      .zone { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 5; cursor: pointer; background: transparent; pointer-events: auto; }
-      .zone-left { left: 0; } .zone-right { right: 0; }
+      .zone {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        z-index: 5;
+        cursor: pointer;
+        background: transparent;
+        pointer-events: auto;
+      }
+      .zone-left {
+        left: 0;
+      }
+      .zone-right {
+        right: 0;
+      }
 
       .meta {
-        position: absolute; left: 50%; transform: translateX(-50%);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
         bottom: calc(14px + (var(--meta-gap)) / 2);
-        text-align: center; line-height: 1.35; color: hsl(var(--muted));
-        font-weight: 600; letter-spacing: 0.1px; font-size: clamp(14px, 1.8vw, 16px);
-        white-space: pre-line; text-shadow: 0 1px 2px rgba(0,0,0,0.45);
-        min-height: calc(1em * 1.35 * 2); display: grid; align-items: center; z-index: 4; pointer-events: none;
+        text-align: center;
+        line-height: 1.35;
+        color: var(--text-muted);
+        font-weight: 600;
+        letter-spacing: 0.1px;
+        font-size: clamp(14px, 1.8vw, 16px);
+        white-space: pre-line;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        min-height: calc(1em * 1.35 * 2);
+        display: grid;
+        align-items: center;
+        z-index: 4;
+        pointer-events: none;
       }
 
       /* Desktop-only spacing refinements (titles spacing) */
       @media (min-width: 900px) {
         .wrap {
-          padding: 48px clamp(16px, 3vw, 28px) 48px; /* more above name */
-          row-gap: 20px; /* less below line 2 */
+          padding: 48px clamp(16px, 3vw, 28px) 48px;
+          row-gap: 20px;
         }
       }
 
       @media (max-width: 640px) {
-        .wrap { padding: 36px 16px 36px; row-gap: 28px; }
-        .stage { min-height: 66vh; gap: 33px; }
-        .flow { transform: translateY(-8px); }
-        .title--name { font-size: clamp(24px, 6vw, 36px); letter-spacing: 0.35px; margin-top: 8px; margin-bottom: 36px; }
-        .title--subtitle { font-size: clamp(15px, 3.8vw, 20px); margin-bottom: 16px; }
+        .wrap {
+          padding: 36px 16px 36px;
+          row-gap: 28px;
+        }
+        .stage {
+          min-height: 66vh;
+          gap: 33px;
+        }
+        .flow {
+          transform: translateY(-8px);
+        }
+        .title--name {
+          font-size: clamp(24px, 6vw, 36px);
+          letter-spacing: 0.35px;
+          margin-top: 8px;
+          margin-bottom: 36px;
+        }
+        .title--subtitle {
+          font-size: clamp(15px, 3.8vw, 20px);
+          margin-bottom: 16px;
+        }
       }
 
-      /* Desktop-only: use larger meta-gap but same formula to keep meta centered */
+      /* Desktop-only: larger meta-gap but same formula to center meta nicely */
       @media (min-width: 900px) {
         :root {
-          --meta-gap: 96px; /* tune ±4–8px if needed */
+          --meta-gap: 96px;
         }
         .meta {
           bottom: calc(14px + (var(--meta-gap)) / 2);
@@ -201,19 +379,35 @@
 
       /* Zoom overlay */
       .zoom-overlay {
-        position: fixed; inset: 0; z-index: 99;
-        display: none; align-items: center; justify-content: center;
-        background: rgba(0,0,0,0.6);
+        position: fixed;
+        inset: 0;
+        z-index: 99;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: color-mix(in oklab, black 60%, transparent);
         backdrop-filter: blur(6px) saturate(120%);
         -webkit-backdrop-filter: blur(6px) saturate(120%);
       }
-      .zoom-overlay.open { display: flex; }
-      .zoom-content {
-        max-width: 92vw; max-height: 90vh; box-shadow: var(--shadow);
-        border-radius: var(--radius); overflow: hidden; background: #0f1115;
-        border: 1px solid rgba(255,255,255,0.15);
+      .zoom-overlay.open {
+        display: flex;
       }
-      .zoom-content img { display: block; max-width: 100%; max-height: 90vh; object-fit: contain; object-position: center; }
+      .zoom-content {
+        max-width: 92vw;
+        max-height: 90vh;
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--bg-dark);
+        border: 1px solid var(--border-muted);
+      }
+      .zoom-content img {
+        display: block;
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        object-position: center;
+      }
     </style>
   </head>
   <body>
@@ -233,192 +427,4 @@
 
         <!-- Side arrows -->
         <button class="nav-arrow nav-left" id="arrowPrev" aria-label="Previous">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" d="M15.5 4.5L8 12l7.5 7.5-1.5 1.5L5 12l9-9 1.5 1.5z"/>
-          </svg>
-        </button>
-        <button class="nav-arrow nav-right" id="arrowNext" aria-label="Next">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" d="M8.5 19.5L16 12 8.5 4.5 10 3l9 9-9 9-1.5-1.5z"/>
-          </svg>
-        </button>
-
-        <!-- Click zones -->
-        <div class="zone zone-left" id="zoneLeft" aria-hidden="true"></div>
-        <div class="zone zone-right" id="zoneRight" aria-hidden="true"></div>
-
-        <!-- Meta under focused card -->
-        <div id="meta" class="meta" aria-live="polite"></div>
-      </main>
-    </div>
-
-    <!-- Zoom overlay -->
-    <div id="zoomOverlay" class="zoom-overlay" role="dialog" aria-modal="true">
-      <div class="zoom-content">
-        <img id="zoomImg" alt="" />
-      </div>
-    </div>
-
-    <script>
-      const items = [
-        { label: "WT", img: "WT.png", meta: "2013" },
-        { label: "NCSU", img: "NCSU.png", meta: "2015" },
-        { label: "SecSet", img: "SecSet.png", meta: "2019" },
-        { label: "Sec+", img: "Sec+.png", meta: "Since 2020\nStatus: Active" },
-        { label: "Linux+", img: "Linux+.png", meta: "Since 2024\nStatus: Active" },
-        { label: "CySA+", img: "CySA+.png", meta: "Since 2025\nStatus: Active" },
-        { label: "CSAP", img: "CSAP.png", meta: "Since 2025\nStatus: Active" }
-      ];
-
-      const aspect = { "Linux+.png": "22 / 17" };
-      const DEFAULT_ASPECT = "22 / 17";
-
-      const flow = document.getElementById("flow");
-      const meta = document.getElementById("meta");
-      const arrowPrev = document.getElementById("arrowPrev");
-      const arrowNext = document.getElementById("arrowNext");
-      const zoneLeft = document.getElementById("zoneLeft");
-      const zoneRight = document.getElementById("zoneRight");
-
-      // Zoom elements
-      const zoomOverlay = document.getElementById("zoomOverlay");
-      const zoomImg = document.getElementById("zoomImg");
-
-      let index = 0;
-
-      const cards = items.map((item, i) => {
-        const card = document.createElement("button");
-        card.className = "card";
-        card.setAttribute("role", "option");
-        card.setAttribute("aria-label", item.label);
-        card.setAttribute("aria-selected", i === index ? "true" : "false");
-        card.tabIndex = i === index ? 0 : -1;
-        card.style.aspectRatio = aspect[item.img] || DEFAULT_ASPECT;
-
-        const shadow = document.createElement("div");
-        shadow.className = "shadow-wrap";
-
-        const scale = document.createElement("div");
-        scale.className = "scale";
-
-        const img = document.createElement("img");
-        img.className = "thumb";
-        img.alt = "";
-        img.src = item.img;
-        img.loading = "lazy";
-        img.decoding = "async";
-
-        scale.appendChild(img);
-        card.appendChild(shadow);
-        card.appendChild(scale);
-        flow.appendChild(card);
-
-        // Clicking the focused card opens zoom; otherwise advance
-        card.addEventListener("click", (e) => {
-          const focused = card.getAttribute("aria-selected") === "true";
-          if (focused) {
-            openZoom(item.img);
-            e.stopPropagation();
-          } else {
-            next();
-          }
-        });
-
-        return card;
-      });
-
-      function render() {
-        const n = items.length;
-        for (let i = 0; i < n; i++) {
-          const card = cards[i];
-          let d = i - index;
-          if (Math.abs(d) > n / 2) d = d > 0 ? d - n : d + n;
-
-          const abs = Math.abs(d);
-          const sign = Math.sign(d);
-
-          const angle = sign * -1 * toRad(getVar("--tilt", 16));
-          const spread = getVar("--card-gap", 120);
-          const sideScale = getVar("--side-scale", 0.76);
-          const focusScale = getVar("--focus-scale", 1.06);
-
-          const translateX = d * spread;
-          const translateZ = abs === 0 ? 110 : -140 - abs * 50;
-          const rotateY = abs === 0 ? 0 : angle;
-
-          const scaleV = abs === 0 ? focusScale : sideScale;
-          const opacity = abs === 0 ? 1 : Math.max(0.18, 1 - abs * 0.18);
-          const blur = abs === 0 ? 0 : Math.min(4 + abs * 1.2, 9);
-
-          card.style.transform =
-            "translateX(" + translateX + "px) " +
-            "translateZ(" + translateZ + "px) " +
-            "rotateY(" + rotateY + "rad) " +
-            "scale(" + scaleV + ")";
-          card.style.opacity = String(opacity);
-          card.style.filter = "blur(" + blur + "px)";
-          card.setAttribute("aria-selected", abs === 0 ? "true" : "false");
-          card.tabIndex = abs === 0 ? 0 : -1;
-        }
-        meta.textContent = items[index].meta;
-      }
-
-      function toRad(deg) { return (deg * Math.PI) / 180; }
-      function getVar(name, fallback) {
-        const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-        if (!v) return fallback;
-        const num = parseFloat(v);
-        return Number.isNaN(num) ? fallback : num;
-      }
-
-      function next() { index = (index + 1) % items.length; render(); }
-      function prev() { index = (index - 1 + items.length) % items.length; render(); }
-
-      // Arrows
-      arrowNext.addEventListener("click", (e) => { e.stopPropagation(); next(); });
-      arrowPrev.addEventListener("click", (e) => { e.stopPropagation(); prev(); });
-
-      // Zones
-      zoneRight.addEventListener("click", () => next());
-      zoneLeft.addEventListener("click", () => prev());
-
-      // Keyboard nav
-      window.addEventListener("keydown", (e) => {
-        if (zoomOverlay.classList.contains("open")) {
-          if (e.key === "Escape") closeZoom();
-          return;
-        }
-        if (e.key === "ArrowRight") next();
-        else if (e.key === "ArrowLeft") prev();
-      });
-
-      // Drag/Swipe
-      let startX = null;
-      const start = (x) => (startX = x);
-      const move = (x) => {
-        if (startX === null) return;
-        const dx = x - startX;
-        if (Math.abs(dx) > 40) { if (dx < 0) next(); else prev(); startX = null; }
-      };
-      const end = () => (startX = null);
-      flow.addEventListener("pointerdown", (e) => start(e.clientX));
-      window.addEventListener("pointermove", (e) => move(e.clientX));
-      window.addEventListener("pointerup", end);
-      window.addEventListener("pointercancel", end);
-      window.addEventListener("pointerleave", end);
-
-      // Zoom overlay
-      function openZoom(src) {
-        zoomImg.src = src;
-        zoomOverlay.classList.add("open");
-      }
-      function closeZoom() {
-        zoomOverlay.classList.remove("open");
-        zoomImg.src = "";
-      }
-      zoomOverlay.addEventListener("click", closeZoom);
-
-      render();
-    </script>
-  </body>
-</html>
+          <svg viewBox="0 0 24 24"

@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <title>cer.tificat.io/ns</title>
     <style>
       :root {
@@ -32,109 +35,198 @@
         --arrow-color: rgba(255, 255, 255, 0.88);
       }
 
-      * { box-sizing: border-box; }
-      html, body { height: 100%; }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
       body {
         margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial;
         color: hsl(var(--text));
         background: hsl(25 15% 18%);
         overflow: hidden;
       }
 
       .bg {
-        position: fixed; inset: 0; z-index: 0;
-        background:
-          radial-gradient(800px 800px at 15% 20%, hsl(var(--bg-b) / 0.9), transparent 70%),
-          radial-gradient(900px 900px at 85% 30%, hsl(var(--bg-c) / 0.9), transparent 70%),
-          radial-gradient(700px 700px at 30% 80%, hsl(var(--bg-d) / 0.85), transparent 70%),
-          radial-gradient(700px 700px at 75% 75%, hsl(var(--bg-e) / 0.8), transparent 70%),
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background: radial-gradient(
+            800px 800px at 15% 20%,
+            hsl(var(--bg-b) / 0.9),
+            transparent 70%
+          ),
+          radial-gradient(
+            900px 900px at 85% 30%,
+            hsl(var(--bg-c) / 0.9),
+            transparent 70%
+          ),
+          radial-gradient(
+            700px 700px at 30% 80%,
+            hsl(var(--bg-d) / 0.85),
+            transparent 70%
+          ),
+          radial-gradient(
+            700px 700px at 75% 75%,
+            hsl(var(--bg-e) / 0.8),
+            transparent 70%
+          ),
           linear-gradient(145deg, hsl(var(--bg-a)), hsl(var(--bg-d)));
         filter: blur(var(--blur));
         transform: scale(1.05);
       }
       .veil {
-        position: fixed; inset: 0; z-index: 1;
+        position: fixed;
+        inset: 0;
+        z-index: 1;
         backdrop-filter: blur(18px) saturate(110%);
         -webkit-backdrop-filter: blur(18px) saturate(110%);
-        background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.18));
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.08),
+          rgba(0, 0, 0, 0.18)
+        );
       }
 
       .wrap {
-        position: relative; z-index: 2; min-height: 100dvh;
-        display: grid; grid-template-rows: auto 1fr auto;
-        align-items: center; justify-items: center;
-        padding: 40px clamp(16px, 3vw, 28px); gap: 24px;
+        position: relative;
+        z-index: 2;
+        min-height: 100dvh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        align-items: center;
+        justify-items: center;
+        padding: 40px clamp(16px, 3vw, 28px);
+        gap: 24px;
       }
 
-      header h1 {
-        margin: 0; font-size: clamp(18px, 2.8vw, 28px); font-weight: 650; text-align: center;
-        text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+      /* Title updated: split across lines, no pipe */
+      .site-title {
+        margin: 0;
+        font-size: clamp(18px, 2.8vw, 28px);
+        font-weight: 650;
+        text-align: center;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+        line-height: 1.25;
+        white-space: pre-line;
       }
 
       .stage {
-        width: min(92vw, 1300px); min-height: min(64vh, 700px);
-        display: grid; grid-template-rows: auto 1fr auto;
-        align-items: center; justify-items: center; gap: 22px;
-        perspective: 1400px; position: relative;
+        width: min(92vw, 1300px);
+        min-height: min(64vh, 700px);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        align-items: center;
+        justify-items: center;
+        gap: 22px;
+        perspective: 1400px;
+        position: relative;
       }
 
       .line {
-        width: 100%; height: 1px; position: relative; opacity: 0.9; z-index: 5;
+        width: 100%;
+        height: 1px;
+        position: relative;
+        opacity: 0.9;
+        z-index: 5;
       }
       .line::before {
-        content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
-        background: linear-gradient(to right,
-          hsl(var(--line-fade)), hsl(var(--line)) 14%,
-          hsl(var(--line)) 86%, hsl(var(--line-fade)));
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          hsl(var(--line-fade)),
+          hsl(var(--line)) 14%,
+          hsl(var(--line)) 86%,
+          hsl(var(--line-fade))
+        );
         filter: blur(0.2px);
       }
 
       .flow {
-        position: relative; width: 100%; height: 100%;
-        display: grid; place-items: center;
-        transform-style: preserve-3d; user-select: none; z-index: 2;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        transform-style: preserve-3d;
+        user-select: none;
+        z-index: 2;
       }
 
       /* Card button: neutral visuals */
       .card {
         position: absolute;
         width: min(var(--card-w), 78vw);
-        border: 0; padding: 0; background: transparent;
-        box-shadow: none; appearance: none; -webkit-appearance: none;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        appearance: none;
+        -webkit-appearance: none;
         transform-style: preserve-3d;
-        transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 320ms, opacity 320ms;
-        z-index: 3; cursor: pointer;
+        transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          filter 320ms, opacity 320ms;
+        z-index: 3;
+        cursor: pointer;
       }
-      .card:focus { outline: none; }
-      .card:focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 4px; }
+      .card:focus {
+        outline: none;
+      }
+      .card:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.6);
+        outline-offset: 4px;
+      }
 
       .shadow-wrap {
-        position: absolute; inset: 0;
-        filter: drop-shadow(0 18px 64px rgba(0,0,0,0.36));
+        position: absolute;
+        inset: 0;
+        filter: drop-shadow(0 18px 64px rgba(0, 0, 0, 0.36));
         pointer-events: none;
       }
 
       .scale {
-        position: relative; width: 100%; height: 100%;
-        display: grid; place-items: center;
-        transform: scale(0.8); transform-origin: center;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        transform: scale(0.8);
+        transform-origin: center;
       }
 
       .thumb {
-        width: 100%; height: 100%; display: block;
-        object-fit: contain; object-position: center;
-        border-radius: var(--radius); overflow: hidden;
-        background: none; border: none;
-        transform: translateZ(0); backface-visibility: hidden;
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+        object-position: center;
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: none;
+        border: none;
+        transform: translateZ(0);
+        backface-visibility: hidden;
       }
 
       /* Side arrow buttons */
       .nav-arrow {
-        position: absolute; top: 50%; transform: translateY(-50%);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         z-index: 6;
-        display: grid; place-items: center;
-        width: 44px; height: 44px;
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
         border-radius: 999px;
         color: var(--arrow-color);
         background: var(--arrow-bg);
@@ -142,7 +234,8 @@
         backdrop-filter: blur(6px) saturate(120%);
         -webkit-backdrop-filter: blur(6px) saturate(120%);
         cursor: pointer;
-        opacity: 0; transition: opacity 180ms, background 160ms, transform 160ms;
+        opacity: 0;
+        transition: opacity 180ms, background 160ms, transform 160ms;
       }
       .nav-arrow:hover,
       .nav-arrow:focus-visible {
@@ -150,35 +243,111 @@
         opacity: 1;
         outline: none;
       }
-      .stage:hover .nav-arrow { opacity: 0.9; }
+      .stage:hover .nav-arrow {
+        opacity: 0.9;
+      }
 
-      .nav-left { left: -4px; }
-      .nav-right { right: -4px; }
+      .nav-left {
+        left: -4px;
+      }
+      .nav-right {
+        right: -4px;
+      }
 
-      .nav-arrow svg { width: 18px; height: 18px; display: block; }
+      .nav-arrow svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+      }
 
       /* Invisible click zones for easy prev/next clicks */
       .zone {
-        position: absolute; top: 0; bottom: 0; width: 50%;
-        z-index: 5; cursor: pointer;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        z-index: 5;
+        cursor: pointer;
         background: transparent;
       }
-      .zone-left { left: 0; }
-      .zone-right { right: 0; }
-      /* Don’t block keyboard focus on arrows */
-      .zone { pointer-events: auto; }
-      .nav-arrow { pointer-events: auto; }
+      .zone-left {
+        left: 0;
+      }
+      .zone-right {
+        right: 0;
+      }
+      .zone {
+        pointer-events: auto;
+      }
+      .nav-arrow {
+        pointer-events: auto;
+      }
 
+      /* Meta moved: now inside stage and positioned near bottom,
+         centered between focused asset and bottom border */
       .meta {
-        margin-top: clamp(10px, 2vh, 18px); text-align: center; line-height: 1.35;
-        color: hsl(var(--muted)); font-size: clamp(14px, 1.8vw, 16px);
-        white-space: pre-line; text-shadow: 0 2px 10px rgba(0,0,0,0.45);
-        min-height: calc(1em * 1.35 * 2); display: grid; align-items: center; z-index: 2;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 14px;
+        text-align: center;
+        line-height: 1.35;
+        color: hsl(var(--muted));
+        font-size: clamp(14px, 1.8vw, 16px);
+        white-space: pre-line;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+        min-height: calc(1em * 1.35 * 2);
+        display: grid;
+        align-items: center;
+        z-index: 4;
+        pointer-events: none;
+      }
+
+      /* Zoom overlay */
+      .zoom-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(6px) saturate(120%);
+        -webkit-backdrop-filter: blur(6px) saturate(120%);
+      }
+      .zoom-overlay.open {
+        display: flex;
+      }
+      .zoom-content {
+        max-width: 92vw;
+        max-height: 90vh;
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: #111;
+      }
+      .zoom-content img {
+        display: block;
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        object-position: center;
       }
 
       @media (max-width: 640px) {
-        :root { --card-gap: 90px; --tilt: 14deg; --side-scale: 0.72; --card-w: 520px; --focus-scale: 1.04; }
-        .nav-left { left: 2px; } .nav-right { right: 2px; }
+        :root {
+          --card-gap: 90px;
+          --tilt: 14deg;
+          --side-scale: 0.72;
+          --card-w: 520px;
+          --focus-scale: 1.04;
+        }
+        .nav-left {
+          left: 2px;
+        }
+        .nav-right {
+          right: 2px;
+        }
       }
     </style>
   </head>
@@ -187,9 +356,17 @@
     <div class="veil" aria-hidden="true"></div>
 
     <div class="wrap">
-      <header><h1>cer.tificat.io/ns</h1></header>
+      <header>
+        <h1 class="site-title">cer.tificat.io/ns</h1>
+      </header>
 
-      <header><h1>Chris O'Hara | Academic and Professional Certifications</h1></header>
+      <!-- Title updated: two lines, no pipe -->
+      <header>
+        <h1 class="site-title">
+          Chris O'Hara
+          Academic and Professional Certifications
+        </h1>
+      </header>
 
       <main class="stage" aria-label="Certification coverflow">
         <div class="line" aria-hidden="true"></div>
@@ -201,21 +378,35 @@
         <!-- Side arrows -->
         <button class="nav-arrow nav-left" id="arrowPrev" aria-label="Previous">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" d="M15.5 4.5L8 12l7.5 7.5-1.5 1.5L5 12l9-9 1.5 1.5z"/>
+            <path
+              fill="currentColor"
+              d="M15.5 4.5L8 12l7.5 7.5-1.5 1.5L5 12l9-9 1.5 1.5z"
+            />
           </svg>
         </button>
         <button class="nav-arrow nav-right" id="arrowNext" aria-label="Next">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" d="M8.5 19.5L16 12 8.5 4.5 10 3l9 9-9 9-1.5-1.5z"/>
+            <path
+              fill="currentColor"
+              d="M8.5 19.5L16 12 8.5 4.5 10 3l9 9-9 9-1.5-1.5z"
+            />
           </svg>
         </button>
 
         <!-- Click zones -->
         <div class="zone zone-left" id="zoneLeft" aria-hidden="true"></div>
         <div class="zone zone-right" id="zoneRight" aria-hidden="true"></div>
-      </main>
 
-      <div id="meta" class="meta" aria-live="polite"></div>
+        <!-- Meta relocated into stage -->
+        <div id="meta" class="meta" aria-live="polite"></div>
+      </main>
+    </div>
+
+    <!-- Zoom overlay -->
+    <div id="zoomOverlay" class="zoom-overlay" role="dialog" aria-modal="true">
+      <div class="zoom-content">
+        <img id="zoomImg" alt="" />
+      </div>
     </div>
 
     <script>
@@ -240,7 +431,12 @@
       const zoneLeft = document.getElementById("zoneLeft");
       const zoneRight = document.getElementById("zoneRight");
 
+      // Zoom elements
+      const zoomOverlay = document.getElementById("zoomOverlay");
+      const zoomImg = document.getElementById("zoomImg");
+
       let index = 0;
+      let lastFocusedCard = null;
 
       const cards = items.map((item, i) => {
         const card = document.createElement("button");
@@ -269,8 +465,16 @@
         card.appendChild(scale);
         flow.appendChild(card);
 
-        // Clicking the card itself advances to next
-        card.addEventListener("click", () => { next(); });
+        // Clicking the card: if focused, zoom; otherwise advance next
+        card.addEventListener("click", (e) => {
+          const isFocused = card.getAttribute("aria-selected") === "true";
+          if (isFocused) {
+            openZoom(item.img);
+            e.stopPropagation();
+          } else {
+            next();
+          }
+        });
 
         return card;
       });
@@ -299,32 +503,57 @@
           const blur = abs === 0 ? 0 : Math.min(4 + abs * 1.2, 9);
 
           card.style.transform =
-            "translateX(" + translateX + "px) " +
-            "translateZ(" + translateZ + "px) " +
-            "rotateY(" + rotateY + "rad) " +
-            "scale(" + scaleV + ")";
+            "translateX(" +
+            translateX +
+            "px) translateZ(" +
+            translateZ +
+            "px) rotateY(" +
+            rotateY +
+            "rad) scale(" +
+            scaleV +
+            ")";
           card.style.opacity = String(opacity);
           card.style.filter = "blur(" + blur + "px)";
           card.setAttribute("aria-selected", abs === 0 ? "true" : "false");
           card.tabIndex = abs === 0 ? 0 : -1;
+
+          if (abs === 0) {
+            lastFocusedCard = card;
+          }
         }
         meta.textContent = items[index].meta;
       }
 
-      function toRad(deg) { return (deg * Math.PI) / 180; }
+      function toRad(deg) {
+        return (deg * Math.PI) / 180;
+      }
       function getVar(name, fallback) {
-        const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        const v = getComputedStyle(
+          document.documentElement
+        ).getPropertyValue(name).trim();
         if (!v) return fallback;
         const num = parseFloat(v);
         return Number.isNaN(num) ? fallback : num;
       }
 
-      function next() { index = (index + 1) % items.length; render(); }
-      function prev() { index = (index - 1 + items.length) % items.length; render(); }
+      function next() {
+        index = (index + 1) % items.length;
+        render();
+      }
+      function prev() {
+        index = (index - 1 + items.length) % items.length;
+        render();
+      }
 
       // Side arrows
-      arrowNext.addEventListener("click", (e) => { e.stopPropagation(); next(); });
-      arrowPrev.addEventListener("click", (e) => { e.stopPropagation(); prev(); });
+      arrowNext.addEventListener("click", (e) => {
+        e.stopPropagation();
+        next();
+      });
+      arrowPrev.addEventListener("click", (e) => {
+        e.stopPropagation();
+        prev();
+      });
 
       // Click zones
       zoneRight.addEventListener("click", () => next());
@@ -332,8 +561,19 @@
 
       // Keyboard navigation
       window.addEventListener("keydown", (e) => {
+        if (zoomOverlay.classList.contains("open")) {
+          if (e.key === "Escape") closeZoom();
+          return;
+        }
         if (e.key === "ArrowRight") next();
         else if (e.key === "ArrowLeft") prev();
+        else if (e.key === "Enter" || e.key === " ") {
+          // If focused card is selected, open zoom
+          if (lastFocusedCard && lastFocusedCard.getAttribute("aria-selected") === "true") {
+            const i = index;
+            openZoom(items[i].img);
+          }
+        }
       });
 
       // Drag/Swipe
@@ -342,7 +582,11 @@
       const move = (x) => {
         if (startX === null) return;
         const dx = x - startX;
-        if (Math.abs(dx) > 40) { if (dx < 0) next(); else prev(); startX = null; }
+        if (Math.abs(dx) > 40) {
+          if (dx < 0) next();
+          else prev();
+          startX = null;
+        }
       };
       const end = () => (startX = null);
 
@@ -352,6 +596,17 @@
       window.addEventListener("pointerup", end);
       window.addEventListener("pointercancel", end);
       window.addEventListener("pointerleave", end);
+
+      // Zoom control
+      function openZoom(src) {
+        zoomImg.src = src;
+        zoomOverlay.classList.add("open");
+      }
+      function closeZoom() {
+        zoomOverlay.classList.remove("open");
+        zoomImg.src = "";
+      }
+      zoomOverlay.addEventListener("click", closeZoom);
 
       render();
     </script>
